@@ -8,19 +8,19 @@ using VidlyTwo.Models;
 
 namespace VidlyTwo.Services
 {
-    interface ICustomerService
+    interface ICustomerRepository
     {
         IEnumerable<Customer> Customers();
         Customer CustomerById(int id);
     }
 
-    public class CustomerService : ICustomerService
+    public class CustomerRepository : ICustomerRepository
     {
     
 
         private ApplicationDbContext _context;
 
-        public CustomerService()
+        public CustomerRepository()
         {
             _context = new ApplicationDbContext();
         }

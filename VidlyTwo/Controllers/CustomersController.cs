@@ -9,18 +9,21 @@ namespace VidlyTwo.Controllers
 {
     public class CustomersController : Controller
     {
-        // GET: Customers
+        private readonly CustomerRepository _customerService;
+
+        public CustomersController()
+        {
+            _customerService = new CustomerRepository();
+        }
         public ActionResult Index()
         {
-            var customerService = new CustomerService(); 
-
-            return View(customerService.Customers());
+            return View(_customerService.Customers());
         }
 
         public ActionResult Details(int id)
         {
-            var customerService = new CustomerService();
-            var customer = customerService.CustomerById(id);
+
+            var customer = _customerService.CustomerById(id);
 
             if (customer == null) return HttpNotFound();
 
