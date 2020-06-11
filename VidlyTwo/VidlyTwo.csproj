@@ -207,9 +207,26 @@
     <Compile Include="Migrations\202006110401270_Add birthday over customer table.Designer.cs">
       <DependentUpon>202006110401270_Add birthday over customer table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006110428046_Added movies and Genres tables.cs" />
+    <Compile Include="Migrations\202006110428046_Added movies and Genres tables.Designer.cs">
+      <DependentUpon>202006110428046_Added movies and Genres tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006110433348_Changing Genre id type.cs" />
+    <Compile Include="Migrations\202006110433348_Changing Genre id type.Designer.cs">
+      <DependentUpon>202006110433348_Changing Genre id type.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006110434563_Changing Genre id type and movie genre id.cs" />
+    <Compile Include="Migrations\202006110434563_Changing Genre id type and movie genre id.Designer.cs">
+      <DependentUpon>202006110434563_Changing Genre id type and movie genre id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006110436358_Populatin Table Genre.cs" />
+    <Compile Include="Migrations\202006110436358_Populatin Table Genre.Designer.cs">
+      <DependentUpon>202006110436358_Populatin Table Genre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -320,6 +337,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006110401270_Add birthday over customer table.resx">
       <DependentUpon>202006110401270_Add birthday over customer table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006110428046_Added movies and Genres tables.resx">
+      <DependentUpon>202006110428046_Added movies and Genres tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006110433348_Changing Genre id type.resx">
+      <DependentUpon>202006110433348_Changing Genre id type.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006110434563_Changing Genre id type and movie genre id.resx">
+      <DependentUpon>202006110434563_Changing Genre id type and movie genre id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006110436358_Populatin Table Genre.resx">
+      <DependentUpon>202006110436358_Populatin Table Genre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
