@@ -1,0 +1,18 @@
+﻿@using System.Data.Entity.Infrastructure
+@model VidlyTwo.Models.Movie    
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+<br />
+<h3>@Model.Name</h3>
+<ul>
+    <li>Release Date: @($"{Model.ReleaseDate:yyyy/MM/dd}")</li>
+    <li>Date Added: @($"{Model.DateAdded:yyyy/MM/dd}")</li>
+    <li>Number in Stock: @Model.NumberInStock</li>
+    <li>Genre: @Model.Genre.Name</li>
+
+
+</ul>
