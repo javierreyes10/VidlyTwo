@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,32 +10,34 @@ namespace VidlyTwo.Services
 {
     interface ICustomerService
     {
-        List<Customer> Customers();
+        IEnumerable<Customer> Customers();
         Customer CustomerById(int id);
     }
 
     public class CustomerService : ICustomerService
     {
-        private List<Customer> _customers;
+    
+
+        private ApplicationDbContext _context;
 
         public CustomerService()
         {
-            _customers = new List<Customer>
-            {
-                new Customer {Id = 1, Name = "Customer 1"},
-                new Customer {Id = 2, Name = "Customer 2"},
-                new Customer {Id = 3, Name = "Customer 3"}
-            };
+            _context = new ApplicationDbContext();
         }
 
-        public List<Customer> Customers()
+        protected void Dispose(bool disposing)
         {
-            return _customers;
+            _context.Dispose();
+        }
+
+        public IEnumerable<Customer> Customers()
+        {
+            return _context.Customers.Include(c => c.MembershipType);
         }
 
         public Customer CustomerById(int id)
         {
-            return _customers.FirstOrDefault(c => c.Id == id);
+            return _context.Customers.FirstOrDefault(c => c.Id == id);
         }
     }
 
