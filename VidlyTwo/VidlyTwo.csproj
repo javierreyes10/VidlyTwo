@@ -203,6 +203,10 @@
     <Compile Include="Migrations\202006110328402_updating name MembershipType.Designer.cs">
       <DependentUpon>202006110328402_updating name MembershipType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006110401270_Add birthday over customer table.cs" />
+    <Compile Include="Migrations\202006110401270_Add birthday over customer table.Designer.cs">
+      <DependentUpon>202006110401270_Add birthday over customer table.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -313,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006110328402_updating name MembershipType.resx">
       <DependentUpon>202006110328402_updating name MembershipType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006110401270_Add birthday over customer table.resx">
+      <DependentUpon>202006110401270_Add birthday over customer table.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

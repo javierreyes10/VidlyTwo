@@ -37,7 +37,7 @@ namespace VidlyTwo.Services
 
         public Customer CustomerById(int id)
         {
-            return _context.Customers.FirstOrDefault(c => c.Id == id);
+            return _context.Customers.Include(c => c.MembershipType).FirstOrDefault(c => c.Id == id);
         }
     }
 

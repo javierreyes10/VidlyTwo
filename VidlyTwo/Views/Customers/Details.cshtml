@@ -5,4 +5,12 @@
 
 <h2>Customer</h2>
 <br />
-@Model.Name
+<h3>@Model.Name</h3>
+<ul>
+    <li>@Model.MembershipType.Name</li>
+    @if (Model.BirthDate != null)
+    {
+        <li>@($"{Model.BirthDate:yyyy/MM/dd}")</li>
+    }
+
+</ul>
