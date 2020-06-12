@@ -13,6 +13,7 @@ namespace VidlyTwo.Services
     
 
         private ApplicationDbContext _context;
+        private ICustomerRepository _customerRepositoryImplementation;
 
         public CustomerRepository()
         {
@@ -32,6 +33,29 @@ namespace VidlyTwo.Services
         public Customer CustomerById(int id)
         {
             return _context.Customers.Include(c => c.MembershipType).FirstOrDefault(c => c.Id == id);
+        }
+
+        public IEnumerable<MembershipType> MembershipTypes()
+        {
+            return _context.MembershipTypes;
+        }
+
+        public void Add(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+        }
+
+        public void Save(Customer customer)
+        {
+            var customersInDb = _context.Customers.Single(c => c.Id == customer.Id);
+
+            customersInDb.Name = customer.Name;
+            customersInDb.BirthDate = customer.BirthDate;
+            customersInDb.MembershipTypeId = customer.MembershipTypeId;
+            customersInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+
+            _context.SaveChanges();
         }
     }
 

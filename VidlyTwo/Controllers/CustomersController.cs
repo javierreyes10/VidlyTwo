@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VidlyTwo.Models;
 using VidlyTwo.Services;
+using VidlyTwo.ViewModels;
 
 namespace VidlyTwo.Controllers
 {
@@ -28,6 +30,44 @@ namespace VidlyTwo.Controllers
             if (customer == null) return HttpNotFound();
 
             return View(customer);
+        }
+
+        public ActionResult New()
+        {
+            var membershipTypes = _customerService.MembershipTypes();
+            var viewModel = new CustomerFormViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+            return View("CustomerForm", viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Save(Customer customer)
+        {
+            if (customer.Id == 0)
+            {
+                _customerService.Add(customer);
+            }
+            else
+            {
+                _customerService.Save(customer);
+            }
+
+            return RedirectToAction("Index", "Customers");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var customer = _customerService.CustomerById(id);
+            if (customer == null) return HttpNotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = _customerService.MembershipTypes()
+            };
+            return View("CustomerForm", viewModel);
         }
     }
 }
