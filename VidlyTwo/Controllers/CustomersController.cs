@@ -37,7 +37,8 @@ namespace VidlyTwo.Controllers
             var membershipTypes = _customerService.MembershipTypes();
             var viewModel = new CustomerFormViewModel
             {
-                MembershipTypes = membershipTypes
+                MembershipTypes = membershipTypes,
+                Customer = new Customer()
             };
             return View("CustomerForm", viewModel);
         }
