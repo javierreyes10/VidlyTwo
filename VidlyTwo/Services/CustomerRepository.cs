@@ -13,7 +13,6 @@ namespace VidlyTwo.Services
     
 
         private ApplicationDbContext _context;
-        private ICustomerRepository _customerRepositoryImplementation;
 
         public CustomerRepository()
         {
