@@ -25,28 +25,28 @@ namespace VidlyTwo.Controllers.Api
         }
 
         //GET /api/customers/1
-        public CustomerDto GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if(customer == null)
-                throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
+            if (customer == null)
+                return NotFound();
 
-            return Mapper.Map<Customer, CustomerDto>(customer);
+            return Ok(Mapper.Map<Customer, CustomerDto>(customer));
         }
 
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerDto)
+        public IHttpActionResult CreateCustomer(CustomerDto customerDto)
         {
-            if(!ModelState.IsValid)
-                throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
             _context.Customers.Add(customer);
             _context.SaveChanges();
 
             customerDto.Id = customer.Id;
-            return customerDto;
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto);
         }
 
         [HttpPut]
@@ -55,12 +55,12 @@ namespace VidlyTwo.Controllers.Api
             if (!ModelState.IsValid)
                 throw new HttpRequestException(HttpStatusCode.BadRequest.ToString());
 
-            var customerInDB = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if(customerInDB == null)
+            if(customerInDb == null)
                 throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
 
-            Mapper.Map(customerDto, customerInDB);
+            Mapper.Map(customerDto, customerInDb);
 
             _context.SaveChanges();
 
@@ -69,12 +69,12 @@ namespace VidlyTwo.Controllers.Api
         [HttpDelete]
         public void DeleteCustomer(int id)
         {
-            var customerInDB = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customerInDb = _context.Customers.SingleOrDefault(c => c.Id == id);
 
-            if (customerInDB == null)
+            if (customerInDb == null)
                 throw new HttpRequestException(HttpStatusCode.NotFound.ToString());
 
-            _context.Customers.Remove(customerInDB);
+            _context.Customers.Remove(customerInDb);
             _context.SaveChanges();
         }
     }
