@@ -18,29 +18,35 @@
             <th>Delete</th>
         </tr>
     </thead>
-    @foreach (var movie in Model)
-    {
-<tr>
-
-    <td>
-        <p>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = @movie.Id }, null)</p>
-    </td>
-    <td>
-        <p>@movie.Genre.Name</p>
-    </td>
-    <td>
-        <button data-movie-id="@movie.Id" data-movie-name="@movie.Name" class="btn-link js-delete">Delete</button>
-    </td>
-</tr>
-        
-    }
 </table>
 
 @section scripts
 {
     <script>
         $(document).ready(function() {
-           var table = $("#movies").DataTable();
+            var table = $("#movies").DataTable({
+                ajax: {
+                    url: "/api/movies",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function(data, type, movie) {
+                            return "<a href='movies/edit/'" + movie.id + "'>" + movie.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "id",
+                        render: function(data, type, movie)  {
+                            return "<button class='btn-link js-delete' data-movie-id=" + movie.id +" data-movie-name=" + movie.name + "> Delete </button>";
+                        }
+                    }
+                ]
+            });
 
             $("#movies").on("click",
                 ".js-delete",
@@ -54,7 +60,7 @@
                                 $.ajax({
                                     url: "/api/movies/" + button.attr("data-movie-id"),
                                     method: "DELETE",
-                                    success: function (result) {
+                                    success: function(result) {
                                         table.row(button.parents("tr")).remove().draw();
                                     }
                                 });
