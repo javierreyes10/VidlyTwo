@@ -55,7 +55,7 @@
                                     success: function () {
                                         table.row(button.parents("tr")).remove().draw();
                                         //the tr (row) shouldn't be removed on the dom directly. Because the internal list of the
-                                        //keep the deleted element and when you search for it, you are going to get the removed element.
+                                        //keeps the deleted element and when you search for it, you are going to get the removed element.
                                         //datatable keeps the list of customers internally
                                         //Fix: we should remove the element on the internal list and then draw the table again.
                                     }
