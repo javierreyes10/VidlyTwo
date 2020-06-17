@@ -10,24 +10,57 @@
 <br />
 <br />
 
-<table class="table table-striped table-hover table-bordered">
+<table id="movies" class="table table-striped table-hover table-bordered">
     <thead>
         <tr>
             <th>Movie</th>
             <th>Genre</th>
+            <th>Delete</th>
         </tr>
     </thead>
     @foreach (var movie in Model)
     {
-        <tr>
+<tr>
 
-            <td>
-                <p>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = @movie.Id }, null)</p>
-            </td>
-            <td>
-                <p>@movie.Genre.Name</p>
-            </td>
-        </tr>
+    <td>
+        <p>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = @movie.Id }, null)</p>
+    </td>
+    <td>
+        <p>@movie.Genre.Name</p>
+    </td>
+    <td>
+        <button data-movie-id="@movie.Id" data-movie-name="@movie.Name" class="btn-link js-delete">Delete</button>
+    </td>
+</tr>
         
     }
 </table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+           var table = $("#movies").DataTable();
+
+            $("#movies").on("click",
+                ".js-delete",
+                function() {
+                    var button = $(this);
+                    bootbox.confirm("Are you sure you want to delete " +
+                        button.attr("data-movie-name") +
+                        "?",
+                        function(result) {
+                            if (result) {
+                                $.ajax({
+                                    url: "/api/movies/" + button.attr("data-movie-id"),
+                                    method: "DELETE",
+                                    success: function (result) {
+                                        table.row(button.parents("tr")).remove().draw();
+                                    }
+                                });
+                            }
+                        });
+                });
+        });
+    </script>
+}
