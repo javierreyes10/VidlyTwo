@@ -1,13 +1,11 @@
 ﻿
-@model IEnumerable<VidlyTwo.Models.Customer>
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Customers</h2>
 <br />
-@if (Model.Any())
-{
+
     <table id="customers" class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
@@ -15,32 +13,37 @@
                 <th>Membserhip Type</th>
                 <th>Delete</th>
             </tr>
-        </thead>
-        @foreach (var customer in Model)
-        {
-            <tr>
-                <td> @Html.ActionLink(@customer.Name, "Edit", "Customers", new {id = @customer.Id}, null)</td>
-                <td>@customer.MembershipType.Name</td>
-                <td>
-                    <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
-                </td>
-            </tr>
-        }
     </table>
-
-}
-else
-{
-    <p>We don't have any customers yet.</p>
-
-}
 
 @section scripts{
     <script>
-        $(document).ready(function () {
-            $("#customers").DataTable();
+        $(document).ready(function() {
+            $("#customers").DataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc: "" //Empty string because of our data source is a array of objects itself
+                },
+                columns: [
+                    {
+                        data: "name",
+                        render: function(data, type, customer) {
+                            return "<a href='customers/edit/'" + customer.id + "'>" + customer.name + "</a>";
+                        }
+                    },
+                    {
+                        data: "name"
+                    },
+                    {
+                        data: "id",
+                        render: function(data) {
+                            return "<button class='btn-link js-delete' data-customer-id=" + data +"> Delete </button>";
+                        }
+                    }
+                ]
+            });
 
-            $("#customers").on("click", ".js-delete",
+            $("#customers").on("click",
+                ".js-delete",
                 function() {
                     var button = $(this);
                     bootbox.confirm(("Are you sure you want to delete this customer?"),

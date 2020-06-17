@@ -19,7 +19,7 @@ namespace VidlyTwo.Controllers
         }
         public ActionResult Index()
         {
-            return View(_customerService.Customers());
+            return View();
         }
 
         public ActionResult Details(int id)
