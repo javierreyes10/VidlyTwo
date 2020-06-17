@@ -38,7 +38,7 @@ else
 @section scripts{
     <script>
         $(document).ready(function() {
-            $("#customers .js-delete").on("click",
+            $("#customers").on("click", ".js-delete",
                 function() {
                     var button = $(this);
                     bootbox.confirm(("Are you sure you want to delete this customer?"),
@@ -55,5 +55,15 @@ else
                         });
                 });
         });
+
+        //Jquery optimization:
+        //$("#customers .js-delete").on("click"
+        //for each customer we're gonna have a delete button and for each delete button we are going to have a separate handler function 
+        //in the memory, the more customers we have, the more memory we consume.
+        //To fix that it's better to use a filter, like this,
+        //With this implementation 
+        //$("#customers").on("click", ".js-delete",
+        //No matter how many customers we have. we'll gonna have one click handler attached to the table that we'll be raised by .js-delete
     </script>
 }
+
