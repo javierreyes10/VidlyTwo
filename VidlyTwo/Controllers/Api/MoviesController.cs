@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -23,7 +24,9 @@ namespace VidlyTwo.Controllers.Api
         [HttpGet]
         public IHttpActionResult GetMovies()
         {
-            var movies = _context.Movies.ToList();
+            var movies = _context.Movies
+                .Include(m => m.Genre)
+                .ToList().Select(Mapper.Map<Movie, MovieDto>); ;
             return Ok(movies);
         }
 
@@ -31,11 +34,13 @@ namespace VidlyTwo.Controllers.Api
         [HttpGet]
         public IHttpActionResult GetMovie(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+            var movie = _context.Movies
+                .Include(m => m.Genre)
+                .SingleOrDefault(m => m.Id == id);
 
             if (movie == null) return NotFound();
 
-            return Ok(movie);
+            return Ok(Mapper.Map<Movie, MovieDto>(movie));
 
         }
 
